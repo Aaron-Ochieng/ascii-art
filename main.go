@@ -12,20 +12,32 @@ func main() {
 	// arg := os.Args[1:]
 
 	// Read a file
-	readfile, error := os.Open("standard.txt")
+	file, error := os.Open("standard.txt")
 	if error != nil {
 		fmt.Println(error)
 	}
 
-	fileScanner := bufio.NewScanner(readfile)
+	scanner := bufio.NewScanner(file)
 
-	fileScanner.Split(bufio.ScanLines)
+	scanner.Split(bufio.ScanLines)
 
-	for fileScanner.Scan() {
-		fmt.Println(fileScanner.Text() + fileScanner.Text())
+	emptyLines := []int{}
+	countLine := 1
+	for scanner.Scan() {
+		line := scanner.Text()
+
+		if len(line) == 0 {
+			emptyLines = append(emptyLines, countLine)
+		}
+		countLine++
 
 	}
 
-	defer readfile.Close()
+	defer file.Close()
+
+	fmt.Println(emptyLines)
+	// Print the arguments
+	res := AsciiMap(emptyLines)
+	fmt.Println(res)
 
 }
