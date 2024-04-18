@@ -35,9 +35,11 @@ func main() {
 
 	defer file.Close()
 
-	fmt.Println(emptyLines)
 	// Print the arguments
 	res := AsciiMap(emptyLines)
-	fmt.Println(res)
+
+	for i, val := range res {
+		fmt.Printf("The ascii values of %d is from : %d to : %d  \n", i, val.From, val.To)
+	}
 
 }
