@@ -7,7 +7,6 @@ import (
 )
 
 func main() {
-
 	// Read the commandline arguments
 	// arg := os.Args[1:]
 
@@ -34,12 +33,28 @@ func main() {
 	}
 
 	defer file.Close()
+	fi, error := os.Open("standard.txt")
+	if error != nil {
+		fmt.Println(error)
+	}
+	scans := bufio.NewScanner(fi)
 
 	// Print the arguments
 	res := AsciiMap(emptyLines)
+	x := res[35]
+	fmt.Println(x)
+	coun := 0
+	for scans.Scan() {
+		line := scans.Text()
 
-	for i, val := range res {
-		fmt.Printf("The ascii values of %d is from : %d to : %d  \n", i, val.From, val.To)
+		if coun >= x.From && coun <= x.To {
+			fmt.Println(line)
+		}
+		coun++
+
 	}
-
+	defer file.Close()
+	// for i, val := range res {
+	// 	fmt.Printf("The ascii values of %d is from : %d to : %d  \n", i, val.From, val.To)
+	// }
 }
