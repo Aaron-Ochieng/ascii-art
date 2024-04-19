@@ -33,6 +33,7 @@ func main() {
 	}
 
 	defer file.Close()
+
 	fi, error := os.Open("standard.txt")
 	if error != nil {
 		fmt.Println(error)
@@ -41,19 +42,24 @@ func main() {
 
 	// Print the arguments
 	res := AsciiMap(emptyLines)
-	x := res[35]
-	fmt.Println(x)
-	coun := 0
-	for scans.Scan() {
-		line := scans.Text()
+	ints := []int{33, 34, 35}
 
-		if coun >= x.From && coun <= x.To {
-			fmt.Println(line)
+	for i := 0; i < len(ints); i++ {
+		x := res[ints[i]]
+		fmt.Println(">>>", x)
+		coun := 0
+		for scans.Scan() {
+			line := scans.Text()
+
+			if coun >= x.From && coun <= x.To {
+				fmt.Println(line)
+			}
+			coun++
+
 		}
-		coun++
 
 	}
-	defer file.Close()
+
 	// for i, val := range res {
 	// 	fmt.Printf("The ascii values of %d is from : %d to : %d  \n", i, val.From, val.To)
 	// }
