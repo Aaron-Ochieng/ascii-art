@@ -21,7 +21,7 @@ func main() {
 	scanner.Split(bufio.ScanLines)
 
 	emptyLines := []int{}
-	countLine := 1
+	countLine := 0
 	for scanner.Scan() {
 		line := scanner.Text()
 
@@ -44,18 +44,18 @@ func main() {
 	res := AsciiMap(emptyLines)
 	ints := []int{33, 34, 35}
 
-	for i := 0; i < len(ints); i++ {
-		x := res[ints[i]]
-		fmt.Println(">>>", x)
-		coun := 0
-		for scans.Scan() {
-			line := scans.Text()
+	coun := 0
+
+	for scans.Scan() {
+		line := scans.Text()
+		coun++
+
+		for i := 0; i < len(ints); i++ {
+			x := res[ints[i]]
 
 			if coun >= x.From && coun <= x.To {
 				fmt.Println(line)
 			}
-			coun++
-
 		}
 
 	}
