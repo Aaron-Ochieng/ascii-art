@@ -4,82 +4,48 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-
-	 "strings"
+	"strings"
 )
 
 func main() {
-
-	file, error := os.Open("standard.txt")
-	if error != nil {
-		fmt.Println(error)
+	file, err := os.Open("standard.txt")
+	if err != nil {
+		fmt.Println(err)
+		return
 	}
 	defer file.Close()
+
 	scanner := bufio.NewScanner(file)
 
-	
-
-	countLine := 1
-	var str string
+	var lines []string
 	for scanner.Scan() {
-		line := scanner.Text()
-		countLine++
-		if countLine >= 1 && countLine <= 856 {
-			str += string(line) + "\n"
-		}
-	
+		lines = append(lines, scanner.Text())
 	}
 
-	
+	if err := scanner.Err(); err != nil {
+		fmt.Println(err)
+		return
+	}
 
-strArr := strings.Split(str, "\n")
-//  fmt.Print(len(strArr))
+	const startLine, endLine = 1, 856
+	var selectedLines []string
+	for i := startLine - 1; i < endLine && i < len(lines); i++ {
+		selectedLines = append(selectedLines, lines[i])
+	}
 
-ints := []int{33,34}
-str1, str2,str3,str4,str5,str6,str7,str8 := "","","","", "","", "", ""
-
-
-for i:=0; i < len(ints); i++{
-	line_num :=(int(ints[i]) - 32 ) * 9 + 1
-	for j:= line_num; j < line_num + 8; j++{
-		if j  == line_num {
-			str1 += strArr[j]
-		}
-		if j  == line_num  + 1{
-			str2 += strArr[j]
-		}
-		if j  == line_num + 2 {
-			str3 += strArr[j]
-		}
-		if j  == line_num + 3{
-			str4 += strArr[j]
-		}
-		if j  == line_num + 4{
-			str5 += strArr[j]
-		}
-		if j  == line_num  + 5{
-			str6 += strArr[j]
-		}
-		if j  == line_num + 6 {
-			str7+= strArr[j]
-		}
-		if j  == line_num + 7{
-			str8 += strArr[j]
+	ints := []int{33, 34, 35}
+	var strs []string
+	for _, num := range ints {
+		lineNum := (num - 32) * 9
+		for j := 0; j < 8 && lineNum+j < len(selectedLines); j++ {
+			if len(strs) <= j {
+				strs = append(strs, "")
+			}
+			strs[j] += selectedLines[lineNum+j]
 		}
 	}
-	
 
-
-}
-
-
-
-fmt.Println(str1)
-fmt.Println(str2)
-fmt.Println(str3)
-fmt.Println(str4)
-fmt.Println(str5)
-fmt.Println(str6)
-fmt.Println(str7)
-fmt.Println(str8)
+	for _, str := range strs {
+		fmt.Println(str)
+	}
 }
