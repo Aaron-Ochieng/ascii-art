@@ -4,7 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	"strings"
+
 	// "strings"
 )
 
@@ -32,7 +32,20 @@ func main() {
 
 	
 
-strArr := strings.Split(str, "\n")
-fmt.Print(len(strArr))
+//  strArr := strings.Split(str, "\n")
+//  fmt.Print(len(strArr))
 
+ints := []int{45,46}
+
+
+var intArr []int
+for i:=0; i < len(ints); i++{
+	line_num :=(int(ints[i]) - 32 ) * 9 + 1
+	
+intArr = append(intArr, line_num)
+
+}
+
+
+fmt.Println(intArr)
 }
