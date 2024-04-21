@@ -4,48 +4,48 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-
-	// "strings"
 )
 
-func main() {
-
-	file, error := os.Open("standard.txt")
-	if error != nil {
-		fmt.Println(error)
+func main (){
+	args := os.Args[1:]
+	var str_args  string
+	if len(args) != 0 {
+		str_args += args[0]
 	}
-	defer file.Close()
-	scanner := bufio.NewScanner(file)
+	// Open file
 
+	f, err := os.Open("standard.txt") 
+
+	if err != nil{
+		panic(err)
+	}
 	
+	scanning := bufio.NewScanner(f)
 
-	countLine := 0
-	var str string
-	for scanner.Scan() {
-		line := scanner.Text()
-		countLine++
-		if countLine >= 1 && countLine <= 856 {
-			str += string(line) + "\n"
+
+	var strArr []string
+
+	for scanning.Scan(){
+		strArr = append(strArr, scanning.Text())
+	}
+var ascii []string
+	for i:=0; i < 8; i++{
+ascii = append(ascii, "")
+	}
+
+	for i:=0; i < len(str_args); i ++{
+		start_point := (int(str_args[i]) - 32 ) * 9 + 1
+		for i :=0; i < len(ascii); i++{
+			ascii[i] += strArr[start_point + i]
 		}
-	
+		
 	}
+// fmt.Println(str_args)
+fmt.Println(strArr)
+fmt.Println("Len>>>>",len(strArr))
+fmt.Println(">>>", ascii)
 
-	
-
-//  strArr := strings.Split(str, "\n")
-//  fmt.Print(len(strArr))
-
-ints := []int{45,46}
-
-
-var intArr []int
-for i:=0; i < len(ints); i++{
-	line_num :=(int(ints[i]) - 32 ) * 9 + 1
-	
-intArr = append(intArr, line_num)
-
+for i := 0; i < len(ascii); i++{
+	fmt.Println(string(ascii[i]))
 }
-
-
-fmt.Println(intArr)
 }
