@@ -1,9 +1,10 @@
 package main
 
 import (
-	"bufio"
+	
 	"fmt"
 	"os"
+	"strings"
 )
 
 func main() {
@@ -14,19 +15,17 @@ func main() {
 	}
 	// Open file
 
-	f, err := os.Open("standard.txt")
+	f, err := os.ReadFile("standard.txt")
 
 	if err != nil {
 		panic(err)
 	}
 
-	scanning := bufio.NewScanner(f)
+	
 
-	var strArr []string
+	strArr := strings.Split(string(f), "\n")
 
-	for scanning.Scan() {
-		strArr = append(strArr, scanning.Text())
-	}
+	
 	var ascii []string
 	for i := 0; i < 8; i++ {
 		ascii = append(ascii, "")
@@ -40,9 +39,7 @@ func main() {
 
 	}
 	// fmt.Println(str_args)
-	fmt.Println(strArr)
-	fmt.Println("Len>>>>", len(strArr))
-	fmt.Println(">>>", ascii)
+
 
 	for i := 0; i < len(ascii); i++ {
 		fmt.Println(string(ascii[i]))
