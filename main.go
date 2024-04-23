@@ -11,8 +11,16 @@ func errHandler(err error) {
 		fmt.Println("Error", err)
 	}
 }
+
+func stringContain(s string) []string {
+	if strings.Contains(s, "o") {
+		return strings.Split(s, "\r\n")
+	}
+	return strings.Split(s, "\n")
+}
+
 func GetIndex(ascii int) int {
-	return (ascii-32)*9 + 2
+	return (ascii-32)*9 + 1
 }
 
 func main() {
@@ -30,7 +38,7 @@ func main() {
 	errHandler(err)
 	// fmt.Println(len(file))
 
-	fileData := strings.Split(string(file), "\n")
+	fileData := stringContain(string(file))
 	inputData := strings.Split(input, "\\n")
 
 	for _, word := range inputData {
@@ -42,7 +50,6 @@ func main() {
 			}
 			fmt.Println()
 		}
-
 	}
 
 	// fmt.Println(len(fileData))
