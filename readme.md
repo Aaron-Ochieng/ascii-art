@@ -9,5 +9,5 @@
 ## Running the project
     To run the project 
     ```go
-        student$ go run . "Hello\n" | cat -estudent$ go run . "Hello\n" | cat -e
+        go run . "Hello\n" | cat -estudent$ go run . "Hello\n" | cat -e
     ``
