@@ -8,6 +8,7 @@
 
 ## Running the project
     To run the project 
-    ```go
-        go run . "Hello\n" | cat -estudent$ go run . "Hello\n" | cat -e
-    ``
+    
+```go
+    go run . "Hello\n" | cat -e
+```
