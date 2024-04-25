@@ -40,7 +40,6 @@ func main() {
 
 	fileData := stringContain(string(file))
 	inputData := strings.Split(input, "\\n")
-
 	for _, word := range inputData {
 		for i := 0; i < 8; i++ {
 			for _, char := range word {
