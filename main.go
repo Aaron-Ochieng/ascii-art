@@ -19,7 +19,7 @@ func stringContain(s string) []string {
 	return strings.Split(s, "\n")
 }
 
-func GetIndex(ascii int) int {
+func getIndex(ascii int) int {
 	return (ascii-32)*9 + 1
 }
 
@@ -44,7 +44,7 @@ func main() {
 		for i := 0; i < 8; i++ {
 			for _, char := range word {
 				// fmt.Print(string(char))
-				startingIndex := GetIndex(int(char))
+				startingIndex := getIndex(int(char))
 				fmt.Print(fileData[startingIndex+i])
 			}
 			fmt.Println()
