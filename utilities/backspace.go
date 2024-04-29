@@ -1,6 +1,9 @@
 package ascii
 
 import "strings"
+
+// HandleBackspace function is used in handldling the backspace escape charcter
+// in the input string.
 func HandleBackspace(s string) string {
 	index := strings.Index(s, "\\b") // obtaining the index of the first occurance of \b character
 

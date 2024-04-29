@@ -1,5 +1,9 @@
 package ascii
+
 import "errors"
+
+// CheckIllegalChar function is used to handle the charcharters not in range
+// of printable ascii characters.
 func CheckIllegalChar(arr []string) ([]string, error) {
 	for _, s := range arr {
 		for _, r := range s {

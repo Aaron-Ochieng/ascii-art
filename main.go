@@ -1,3 +1,5 @@
+// Ascii-art is a program which consists in receiving a string as an argument
+// and outputting the string in a graphic representation using ASCII.
 package main
 
 import (
@@ -7,11 +9,6 @@ import (
 
 	ascii "ascii/utilities"
 )
-
-// generating the starting number on the ascii art file
-
-
-
 
 func main() {
 	if len(os.Args) != 2 {
@@ -32,6 +29,12 @@ func main() {
 	input = ascii.HandleBackspace(input)
 	input = strings.ReplaceAll(string(input), "\\t", "   ") // handling the tab sequence
 	file, err := os.ReadFile("standard.txt")
+
+	if len(file) == 0 {
+		fmt.Println("Errror: >>>>>>>>>> Banner files  is empty with length of: ", len(file))
+		return
+	}
+
 	ascii.ErrHandler(err)
 
 	input = strings.ReplaceAll(input, "\\n", "\n")
@@ -49,7 +52,7 @@ func main() {
 		for i := 0; i < 8; i++ { // this loop is responsible for the height of each character
 			for _, char := range part { // iterates through each character of the current word
 				startingIndex := ascii.GetStartingIndex(int(char)) // obtaining the starting position of the char
-				fmt.Print(fileData[startingIndex-1+i])       // printing the character line by line
+				fmt.Print(fileData[startingIndex-1+i])             // printing the character line by line
 			}
 			fmt.Println() // printing a new line after printing each line of the charcter
 		}
