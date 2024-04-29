@@ -48,7 +48,7 @@ func main() {
 	}
 
 	input := os.Args[1] // user input
-	fmt.Println(len(input))
+	// fmt.Println(len(input))
 
 	if input == "" {
 		return
@@ -58,14 +58,13 @@ func main() {
 		return
 	}
 	input = handleBackspace(input)
-	input = strings.ReplaceAll(string(input), ">", "\\n")   // handling the tab sdoks sceequence
 	input = strings.ReplaceAll(string(input), "\\t", "   ") // handling the tab sequence
 	file, err := os.ReadFile("standard.txt")
 	errHandler(err)
 
+	input = strings.ReplaceAll(input, "\\n", "\n")
 	fileData := strings.Split(string(file), "\n")
-
-	spString := strings.Split(input, "\\n") // Split input by "\\n" to handle newline sequence
+	spString := strings.Split(input, "\n") // Split input by "\\n" to handle newline sequence
 	// check for  illegal characters in the string
 	inputParts, err := checkIllegalChar(spString)
 	errHandler(err)
