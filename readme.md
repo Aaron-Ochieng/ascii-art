@@ -6,7 +6,7 @@ What we mean by a graphic representation using ASCII, is to write the string rec
 
 ### Features
 
-The program handles special characters such as newline (\\n) and tab (\\t).
+The program handles special characters such as newline ``(\\n)`` and tab ``(\\t)``.
 It reads from a file named ```standard.txt``` which contains the ASCII representations of characters from 32 - 126 .
 The program prints each character of the input string line by line to form the ASCII Art.
 
