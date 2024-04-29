@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"os"
 	"strings"
@@ -8,7 +9,7 @@ import (
 
 func errHandler(err error) {
 	if err != nil {
-		fmt.Println("Error", err)
+		fmt.Println("Error: ", err)
 	}
 }
 
@@ -27,6 +28,17 @@ func handleBackspace(s string) string {
 		return handleBackspace(s[1:])
 	}
 	return handleBackspace(s[:index-1] + s[index+2:]) // Remove the "\b" and the character before it recursively
+}
+
+func checkIllegalChar(arr []string) ([]string, error) {
+	for _, s := range arr {
+		for _, r := range s {
+			if r < 32 || r > 126 {
+				return []string{}, errors.New("The string must contain characters in the range 32 - 126!")
+			}
+		}
+	}
+	return arr, nil
 }
 
 func main() {
@@ -51,7 +63,10 @@ func main() {
 
 	fileData := strings.Split(string(file), "\n")
 
-	inputParts := strings.Split(input, "\\n") // Split input by "\\n" to handle newline sequence
+	spString := strings.Split(input, "\\n") // Split input by "\\n" to handle newline sequence
+	// check for  illegal characters in the string
+	inputParts, err := checkIllegalChar(spString)
+	errHandler(err)
 
 	for _, part := range inputParts {
 		if part == "" {
