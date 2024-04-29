@@ -29,16 +29,21 @@ func main() {
 	input = ascii.HandleBackspace(input)
 	input = strings.ReplaceAll(string(input), "\\t", "   ") // handling the tab sequence
 	file, err := os.ReadFile("standard.txt")
-
-	if len(file) == 0 {
-		fmt.Println("Errror: >>>>>>>>>> Banner files  is empty with length of: ", len(file))
+	if err != nil {
+		fmt.Println(err)
 		return
 	}
 
-	ascii.ErrHandler(err)
+	//
+	fileData := ascii.StringContain(string(file))
+
+	// Handling empty files
+	if len(fileData) != 856 {
+		fmt.Println("Error: >> Banner files  is empty with length of: ", len(file))
+		return
+	}
 
 	input = strings.ReplaceAll(input, "\\n", "\n")
-	fileData := ascii.StringContain(string(file))
 	inputParts, err := ascii.HandleNewLine(input)
 	ascii.ErrHandler(err)
 
