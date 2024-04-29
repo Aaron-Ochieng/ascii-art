@@ -38,7 +38,7 @@ func main() {
 	ascii.ErrHandler(err)
 
 	input = strings.ReplaceAll(input, "\\n", "\n")
-	fileData := strings.Split(string(file), "\n")
+	fileData := ascii.StringContain(string(file))
 	spString := strings.Split(input, "\n") // Split input by "\\n" to handle newline sequence
 	// check for  illegal characters in the string
 	inputParts, err := ascii.CheckIllegalChar(spString)
@@ -52,7 +52,9 @@ func main() {
 		for i := 0; i < 8; i++ { // this loop is responsible for the height of each character
 			for _, char := range part { // iterates through each character of the current word
 				startingIndex := ascii.GetStartingIndex(int(char)) // obtaining the starting position of the char
-				fmt.Print(fileData[startingIndex-1+i])             // printing the character line by line
+				if startingIndex >= 0 {
+					fmt.Print(fileData[startingIndex-1+i])             // printing the character line by line
+				}
 			}
 			fmt.Println() // printing a new line after printing each line of the charcter
 		}
