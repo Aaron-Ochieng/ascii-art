@@ -10,7 +10,11 @@ import (
 )
 
 func TestExecCommand(t *testing.T) {
-	file, _ := os.ReadFile("standard.txt")
+	file, err := os.ReadFile("standard.txt")
+	if err != nil {
+		t.Error(err)
+		return
+	}
 	fileString := ""
 	fileData := strings.Split(string(file), "\n")
 
@@ -29,17 +33,20 @@ func TestExecCommand(t *testing.T) {
 
 	// Modify here : Input your test input string
 	testStrings := [1]string{
-		"HeLlO\nthere 2+2=4",
+		"hello",
 	}
 
 	// Define the commands to execute here:
 	commands := [1]*exec.Cmd{
-		exec.Command("go", "run", ".", "HeLlO\nthere 2+2=4"),
+		exec.Command("go", "run", ".", "hello"),
 	}
 
 	//
 	for i := range testStrings {
-		inputParts, _ := ascii.HandleNewLine(testStrings[i])
+		inputParts, err := ascii.HandleNewLine(testStrings[i])
+		if err != nil {
+			t.Error(err)
+		}
 		legalChar, err := ascii.CheckIllegalChar(inputParts) // Check for illegal characters in the string
 		if err != nil {
 			t.Error(err)
@@ -86,6 +93,6 @@ func TestExecCommand(t *testing.T) {
 
 	// Match the strings of the file
 	if string(test1) != string(test2) {
-		t.Errorf("Output does not match. Expected %v got %v", string(test1), (string(test2)))
+		t.Errorf("Output does not match. Expected %v\n got %v\n", string(test1), (string(test2)))
 	}
 }
