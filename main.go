@@ -58,7 +58,7 @@ func main() {
 		return
 	}
 	input = handleBackspace(input)
-	input = strings.ReplaceAll(string(input), ">", "\\n")   // handling the tab sdoks sequence
+	input = strings.ReplaceAll(string(input), ">", "\\n")   // handling the tab sdoks sceequence
 	input = strings.ReplaceAll(string(input), "\\t", "   ") // handling the tab sequence
 	file, err := os.ReadFile("standard.txt")
 	errHandler(err)
