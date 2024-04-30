@@ -1,4 +1,11 @@
-## Ascii-art
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+
+<h3 class="text-slate-400">Ascii-art<h3>
 Ascii-art is a program which consists in receiving a string as an argument and outputting the string in a graphic representation using ASCII. Time to write big.
 
 What we mean by a graphic representation using ASCII, is to write the string received using ASCII characters, as you can see in the example below:
