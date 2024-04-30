@@ -4,5 +4,5 @@ package ascii
 // using the ascii value of the charcter passed as argument
 // in the ascii art fil.
 func GetStartingIndex(ascii int) int {
-	return (ascii-32)*9 + 2
+	return (ascii-32)*9 + 1
 }

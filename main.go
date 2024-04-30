@@ -11,6 +11,7 @@ import (
 )
 
 func main() {
+	ascii.HandlePanic()
 	if len(os.Args) != 2 {
 		fmt.Println("Usage: go run . <input string>")
 		return
@@ -28,6 +29,8 @@ func main() {
 	}
 	input = ascii.HandleBackspace(input)
 	input = strings.ReplaceAll(string(input), "\\t", "   ") // handling the tab sequence
+
+	// Read the ascii art text file
 	file, err := os.ReadFile("standard.txt")
 	if err != nil {
 		fmt.Println(err)
@@ -56,7 +59,7 @@ func main() {
 			for _, char := range part { // iterates through each character of the current word
 				startingIndex := ascii.GetStartingIndex(int(char)) // obtaining the starting position of the char
 				if startingIndex >= 0 {
-					fmt.Print(fileData[startingIndex-1+i]) // printing the character line by line
+					fmt.Print(fileData[startingIndex+i]) // printing the character line by line
 				}
 			}
 			fmt.Println() // printing a new line after printing each line of the charcter

@@ -13,7 +13,7 @@ func TestExecCommand(t *testing.T) {
 	file, err := os.ReadFile("standard.txt")
 	if err != nil {
 		t.Error(err)
-		return
+		os.Exit(1)
 	}
 	fileString := ""
 	fileData := strings.Split(string(file), "\n")
@@ -93,6 +93,6 @@ func TestExecCommand(t *testing.T) {
 
 	// Match the strings of the file
 	if string(test1) != string(test2) {
-		t.Errorf("Output does not match. Expected %v\n got %v\n", string(test1), (string(test2)))
+		t.Errorf("Output does not match. Expected %v\n got %v\n", string(test2), (string(test1)))
 	}
 }
