@@ -59,7 +59,7 @@ func TestExecCommand(t *testing.T) {
 			for i := 0; i < 8; i++ {
 				for _, char := range part {
 					startingIndex := ascii.GetStartingIndex(int(char))
-					fileString += fileData[startingIndex-1+i]
+					fileString += fileData[startingIndex+i]
 				}
 				fileString += "\n"
 			}
