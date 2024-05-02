@@ -19,25 +19,25 @@ func TestExecCommand(t *testing.T) {
 	fileData := strings.Split(string(file), "\n")
 
 	// Create files
-	f, err := os.Create("testing.txt")
+	expected, err := os.Create("expected.txt")
 	if err != nil {
 		t.Errorf("Error :%v", err)
 	}
-	g, err := os.Create("output.txt")
+	got, err := os.Create("got.txt")
 	if err != nil {
 		t.Errorf("Error :%v", err)
 	}
 	// close the files
-	defer f.Close()
-	defer g.Close()
+	defer expected.Close()
+	defer got.Close()
 
 	// Modify here : Input your test input string
-	testStrings := [1]string{
+	testStrings := []string{
 		"hello",
 	}
 
 	// Define the commands to execute here:
-	commands := [1]*exec.Cmd{
+	commands := []*exec.Cmd{
 		exec.Command("go", "run", ".", "hello"),
 	}
 
@@ -67,7 +67,7 @@ func TestExecCommand(t *testing.T) {
 		}
 		fileString += "\n"
 	}
-	f.WriteString(fileString)
+	expected.WriteString(fileString)
 
 	// Execute each command and store it in a string
 	for _, cmd := range commands {
@@ -76,23 +76,23 @@ func TestExecCommand(t *testing.T) {
 		if err != nil {
 			t.Error(err)
 		}
-		g.WriteString(string(output) + "\n")
+		got.WriteString(string(output) + "\n")
 		//
 	}
 
 	// Read the output (1) of the commands from a file
-	test1, err := os.ReadFile("output.txt")
+	exTest, err := os.ReadFile("got.txt")
 	if err != nil {
 		t.Error(err)
 	}
 	// Read the output (2) of the commands from a file
-	test2, err := os.ReadFile("testing.txt")
+	gotTest, err := os.ReadFile("expected.txt")
 	if err != nil {
 		t.Error(err)
 	}
 
 	// Match the strings of the file
-	if string(test1) != string(test2) {
-		t.Errorf("Output does not match. Expected %v\n got %v\n", string(test2), (string(test1)))
+	if string(exTest) != string(gotTest) {
+		t.Errorf("Output does not match. Expected \n%v\n with length %v got \n%v\n with length %v", string(exTest), len(string(exTest)), (string(gotTest)), len(string(gotTest)))
 	}
 }
