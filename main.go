@@ -11,7 +11,6 @@ import (
 )
 
 func main() {
-	ascii.HandlePanic()
 	if len(os.Args) != 2 {
 		fmt.Println("Usage: go run . <input string>")
 		return
