@@ -3,29 +3,66 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"os"
+	"regexp"
 	"strings"
 
 	ascii "ascii/utilities"
+	"ascii/colors"
 )
 
 func main() {
-	if len(os.Args) != 2 {
+	if len(os.Args) < 2 {
 		fmt.Println("Usage: go run . <input string>")
 		return
 	}
 
-	input := os.Args[1] // user input
+	var input string
+	if len(os.Args[1:]) > 2 {
+		input = os.Args[4] // user input
+
+	} else {
+		input = os.Args[2]
+	}
 	// fmt.Println(len(input))
+
+	var color string
+	var letterToBeColored string
+	letters := false
+
+	flag.StringVar(&color, "color", "", "the color desired by the user")
+	flag.StringVar(&letterToBeColored, "l", "", "the letter or letters that you can chose to be colored.")
+
+	flag.Parse()
+
+	pattern := `^--color=.+(.+)?(.)$`
+
+	re := regexp.MustCompile(pattern)
+
+	arguments := strings.Join(os.Args[1:], " ")
+
+	if !re.MatchString(arguments) {
+		fmt.Println("Usage: go run . [OPTION] [STRING]")
+		fmt.Println("EX: go run . --color=< CAN'T BE EMPTY > <letters to be colored> something")
+		os.Exit(0)
+	} 
+
+	if color == ""{
+		fmt.Println("Usage: go run . [OPTION] [STRING]")
+		fmt.Println("EX: go run . --color=< CAN'T BE EMPTY > <letters to be colored> something")
+		os.Exit(0)
+	}
+
+	if letterToBeColored != "" {
+		letters = true
+	}
 
 	if input == "" {
 		return
 	}
-	if input == "\\n" {
-		fmt.Println()
-		return
-	}
+
 	input = ascii.HandleBackspace(input)
 	input = strings.ReplaceAll(string(input), "\\t", "   ") // handling the tab sequence
 
@@ -49,16 +86,34 @@ func main() {
 	inputParts, err := ascii.HandleNewLine(input)
 	ascii.ErrHandler(err)
 
+	count := 0
+	ansiColor := utils.GetColor(color)
+
 	for _, part := range inputParts {
 		if part == "" {
-			fmt.Println() // Print a newline if the part is empty (i.e., consecutive newline characters)
-			continue
+			count++
+			if count < len(inputParts) {
+				fmt.Println() // Print a newline if the part is empty (i.e., consecutive newline characters)
+				continue
+			} else {
+				continue
+			}
 		}
 		for i := 0; i < 8; i++ { // this loop is responsible for the height of each character
 			for _, char := range part { // iterates through each character of the current word
 				startingIndex := ascii.GetStartingIndex(int(char)) // obtaining the starting position of the char
+				line := fileData[startingIndex+i]
 				if startingIndex >= 0 {
-					fmt.Print(fileData[startingIndex+i]) // printing the character line by line
+					if letters {
+						if strings.ContainsRune(letterToBeColored, char) {
+							fmt.Printf("%s%s\x1b[0m", ansiColor, line)
+						} else {
+							fmt.Print(line)
+						}
+					}else {
+
+						fmt.Printf("%s%s\x1b[0m", ansiColor, line)// printing the character line by line
+					}
 				}
 			}
 			fmt.Println() // printing a new line after printing each line of the charcter
